@@ -44,10 +44,4 @@ export class HeroesComponent implements OnInit {
   // 1 //   console.log('cogerLlamada', heroes);
   // 1 //   this.heroes = heroes;
   // 1 // }
-
-  onSelect(hero: Hero) {
-    console.log('onSelect', hero);
-    this.selectedHero = hero;
-  }
-
 }
