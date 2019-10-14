@@ -1,0 +1,147 @@
+openapi: 3.0.1
+info:
+  title: Angular Tour of Heroes
+  description: 'Ejemplo de API para Heroes en Angular Tour of Heroes'
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: javier@email.net
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Angular Tour of Heroes
+  url: https://angular.io/tutorial
+servers:
+- url: http://localhost:3000
+tags:
+- name: CRUD Heroes
+  description: Altas, bajas, modificaciones y consultas
+paths:
+  /heroes:
+    get:
+      tags: 
+      - heroes
+      summary: Obtener todos los heroes
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Hero'
+        400:
+          description: Invalid status value
+          content: {}
+    post:
+      tags:
+      - heroes
+      summary: Dar de alta un heroe nuevo
+      requestBody:
+        description: Heroe a añadir
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hero'
+        required: true
+      responses:
+        405:
+          description: Invalid input
+          content: {}
+        201:
+          description: successful operation
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Hero'
+        400:
+          description: Invalid status value
+          content: {}
+  /heroes/{heroId}:
+    get:
+      tags:
+      - heroes
+      summary: Obtener heroe por id
+      parameters:
+      - name: heroId
+        in: path
+        description: ID del heroe pedido
+        required: true
+        schema:
+          type: integer
+          format: int64
+      
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Hero'
+        404:
+          description: No se ha encontrado el heroe
+          content: {}
+    put:
+      tags:
+      - heroes
+      summary: Modificar un heroe existente
+      parameters:
+      - name: heroId
+        in: path
+        description: Id del heroe a modificar
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Heroe a añadir
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hero'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+                schema:
+                 $ref: '#/components/schemas/Hero'
+        404:
+          description: No se ha encontrado el heroe
+          content: {}
+    delete:
+      tags:
+      - heroes
+      summary: Borrar un heroe por su Id
+      parameters:
+      - name: heroId
+        in: path
+        description: ID del heroe pedido
+        required: true
+        schema:
+          type: integer
+          format: int64
+      
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Hero'
+        404:
+          description: No se ha encontrado el heroe
+          content: {}
+components:
+  schemas:
+    Hero:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
